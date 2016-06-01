@@ -4,12 +4,12 @@ document.querySelector('form').onsubmit = function(ev) {
         ev.preventDefault();
 
         var name = document.getElementsByName('name');
-        var hair_color = document.getElementsByName('hair_color');
+        var hairColor = '<div id="react" style="width: 100px; height: 100px;"></div>';
         var age = document.getElementsByName('birthplace');
 
         var details = document.querySelector('.details');
         details.innerHTML += '<dl>' +  '<dt> Name </dt>' + '<dd>' + this.name.value + '</dd>' +
-          '<dt> Hair Color </dt>' + '<dd>' + '<div id="react" style="width: 100px; height: 100px;"></div>' + '</dd>' +'<dt> Age </dt>' + '<dd>' + this.age.value + '</dd>' 
+          '<dt> Hair Color </dt>' + '<dd>' + hairColor + '</dd>' +'<dt> Age </dt>' + '<dd>' + this.age.value + '</dd>'
         + '<dt> Birthplace </dt>' + '<dd>' + this.birthplace.value + '</dd>' +  '</dl>';
 
 
@@ -24,6 +24,7 @@ document.querySelector('form').onsubmit = function(ev) {
 
 
 // his way of setting up the form
+
 //document.querySelector('form').onsubmit = function(ev) {
 //  ev.preventDefault();
 //  var details = document.querySelector('.details');
@@ -31,6 +32,9 @@ document.querySelector('form').onsubmit = function(ev) {
 //  var hairColor = this.hair_color;
 //  var age = this.age;
 //  var birthplace = this.birthplace;
+
+//var colorDiv = '<div style="height: 100px; width: 100px; background-color: ' + hairColor.value + '"></div>';
+
 
 //  details.innerHTML += ' \
     //<dl> \
