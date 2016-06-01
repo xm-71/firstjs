@@ -1,35 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html class="no-js" lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Not my First</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baby's First JavaScript</title>
+    <link rel="stylesheet" href="css/foundation.css">
+    <link rel="stylesheet" href="css/app.css">
   </head>
   <body>
-  <selction>
-    <div>
-          <form action="index.html" method="post">
+    <section>
+      <div>
+        <form action="" method="post">
+        <label for="name">Name</label>
+        <input type="text" name="name" placeholder="Your Name" id="" required/>
 
-            <label for="name">Name </label>
-            <input type="text" name="name" value="" placeholder="Please enter your name" required id="input">
-            <button type="submit">Submit</button>
+        <label for="hair_color">Hair Color</label>
+        <input class="jscolor" onchange="update(this.jscolor)"  name="hair_color"  required/>
 
-          </form>
+        <label for="age">Age</label>
+        <input type="number" name="age" placeholder="Your Age" id="" required/>
 
-          <div class="details" id="details">
-    </div>
-  </selction>
+        <label for="birthplace">Birthplace</label>
+        <input type="text" name="birthplace" placeholder="Where were you born?" id="" required/>
 
-        <script type="text/javascript">
+        <button class="button">Submit</button>
+      </form>
+      </div>
+
+      <div class="details">
+
+      </div>
+
+      <br>
+
+      
+    </section>
+
+    <script src="js/vendor/jquery.js"></script>
+    <script src="js/vendor/what-input.js"></script>
+    <script src="js/vendor/foundation.js"></script>
+    <script src="js/app.js"></script>
+    <script src="jscolor.js"></script>
 
 
-        document.querySelector('form').onsubmit = function(ev) {
-          //document.getElementById('details').innerHTML = document.getElementById('input').value; what i tried to do
 
-          ev.preventDefault();
-          var details = document.querySelector('.details');
-          details.innerHTML = '<p>' + this.name.value + '</p>';
-        }
-
-        </script>
   </body>
 </html>
