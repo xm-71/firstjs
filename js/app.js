@@ -1,5 +1,13 @@
 $(document).foundation()
 
+var buildColorDiv = function(color){
+
+return var colorDiv = '<div style="height: 100px; width: 100px; background-color: ' + color + '"></div>';
+
+}
+
+var adValuesToDetails = function(ev) {
+
 document.querySelector('form').onsubmit = function(ev) {
         ev.preventDefault();
 
@@ -19,7 +27,13 @@ document.querySelector('form').onsubmit = function(ev) {
       function update(jscolor) {
 
     document.getElementById('react').style.backgroundColor = '#' + jscolor
-}
+};
+
+
+    document.querySelector('form').onsubmit = addValuesToDetails;
+
+    //document.querySelector('input[type="text"]').onblur = addValuesToDetails;
+
 
 
 
