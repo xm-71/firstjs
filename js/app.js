@@ -1,4 +1,4 @@
-$(document).foundation();
+
 
 (function () {
 
