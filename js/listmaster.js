@@ -28,9 +28,18 @@ var megaRoster = {
         var list = item.parentElement;
         list.removeChild(item);
       },
-    })
+    });
+
+    var promoteLink = this.buildLink({
+      text: 'promote',
+      handler: function(ev){
+        item.style.border = '2px cornflowerBlue dashed';
+
+      },
+    });
     item.innerText = studentName;
     item.appendChild(deleteLink);
+    item.appendChild(promoteLink);
     return item;
   },
 
