@@ -1,7 +1,8 @@
-$(document).foundation();
+$(document).foundation()
 
 var megaRoster = {
-    init: function() {
+    init: function(rosterElementSelector) {
+        this.rosterElement = document.querySelector(rosterElementSelector);
         this.setupEventListeners();
     },
 
@@ -14,8 +15,7 @@ var megaRoster = {
         var f = ev.currentTarget;
         var studentName = f.studentName.value;
         var item = this.buildListItem(studentName);
-        var list = document.querySelector('#studentList');
-        this.prependChild(list, item);
+        this.prependChild(this.rosterElement, item);
         f.reset();
         f.studentName.focus();
     },
@@ -27,65 +27,79 @@ var megaRoster = {
     buildListItem: function(studentName) {
         var item = document.createElement('li');
         item.innerText = studentName;
+        this.appendLinks(item);
 
-        // BEGIN things to move to a separate function
+        return item;
+    },
+
+    promote: function(item) {
+        this.prependChild(this.rosterElement, item);
+    },
+
+    moveUp: function(item) {
+        var previousElement = item.previousElementSibling;
+        this.rosterElement.insertBefore(item, previousElement);
+    },
+
+    moveDown: function(item) {
+        this.moveUp(item.nextElementSibling);
+    },
+
+    isFirstItem: function(item) {
+        return (this.rosterElement.firstChild === item);
+    },
+
+    isLastItem: function(item) {
+        return (this.rosterElement.lastChild === item);
+    },
+
+    appendLinks: function(item) {
         var deleteLink = this.buildLink({
             text: 'remove',
             handler: function(ev) {
-                var list = item.parentElement;
-                list.removeChild(item);
+                this.rosterElement.removeChild(item);
             }
         });
 
         var promoteLink = this.buildLink({
             text: 'promote',
-            handler: function(ev) {
-                item.style.border = '2px CornflowerBlue dashed';
-            }
-        });
-
-        var unPromoteLink = this.buildLink({
-            text: 'UnPromote',
-            handler: function(ev) {
-                item.style.border = '';
-            }
-        });
-
-        var MoveUpLink = this.buildLink({
-            text: 'Move Up',
-            handler: function(ev) {
-                parent.nextSibling();
-            }
-        });
-
-        var MoveDownLink = this.buildLink({
-            text: 'Move Dow ',
-            handler: function(ev) {
-                parent.previousSibling();
+            handler: function() {
+                this.promote(item);
             }
         });
 
         item.appendChild(deleteLink);
         item.appendChild(promoteLink);
-        item.appendChild(unPromoteLink);
-        item.appendChild(MoveUpLink);
-        item.appendChild(MoveDownLink);
-        // END things to move to a separate function
 
-        return item;
-    },
+        item.appendChild(this.buildLink({
+            text: 'up',
+            className: 'up',
+            handler: function() {
+                if (item !== this.rosterElement.firstElementChild) {
+                    this.moveUp(item);
+                }
+            }
+        }));
 
-    appendLinks: function(item) {
-        // Append the delete and promote links
+        item.appendChild(this.buildLink({
+            text: 'down',
+            className: 'down',
+            handler: function() {
+                if (item !== this.rosterElement.lastElementChild) {
+                    this.moveDown(item);
+                }
+            }
+        }));
     },
 
     buildLink: function(options) {
         var link = document.createElement('a');
         link.href = '#';
         link.innerText = options.text;
-        link.onclick = options.handler;
+        link.onclick = options.handler.bind(this);
+        link.className = options.className;
         return link;
     },
-};
+}
 
-megaRoster.init();
+megaRoster.init('#studentList');
